@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Formulir;
 use App\Models\Pengumuman;
 
+
 class AdminController extends Controller
 {
     public function index()
@@ -41,5 +42,14 @@ class AdminController extends Controller
         $formulir->save();
 
         return back()->with('success', 'Status pendaftaran dan pesan berhasil dikirim ke orang tua!');
+    }
+
+    public function panduan()
+    {
+        return view('admin.panduan');
+    }
+    public function create()
+    {
+        return view('admin.formulir');
     }
 }

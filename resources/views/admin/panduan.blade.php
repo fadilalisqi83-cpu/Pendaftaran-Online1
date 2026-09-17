@@ -6,9 +6,6 @@
     <title>Panduan Pengisian Formulir - PPDB</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* =========================================
-           GLOBAL STYLES
-           ========================================= */
         * {
             margin: 0;
             padding: 0;
@@ -23,15 +20,14 @@
             min-height: 100vh;
         }
 
-        /* Setel semua SVG agar patuh pada CSS */
         svg {
             fill: none;
             stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
-        /* =========================================
-           SIDEBAR STYLES
-           ========================================= */
         .sidebar {
             width: 260px;
             background: #FFFFFF;
@@ -75,7 +71,6 @@
             width: 20px;
             height: 20px;
             margin-right: 12px;
-            stroke-width: 2;
         }
 
         .sidebar-menu a:hover {
@@ -116,7 +111,6 @@
         .user-avatar svg {
             width: 20px;
             height: 20px;
-            stroke-width: 2;
         }
 
         .user-info {
@@ -159,12 +153,8 @@
             width: 18px;
             height: 18px;
             margin-right: 10px;
-            stroke-width: 2;
         }
 
-        /* =========================================
-           MAIN CONTENT STYLES
-           ========================================= */
         .main {
             flex: 1;
             padding: 40px 50px;
@@ -206,7 +196,6 @@
             margin-left: 20px;
         }
 
-        /* --- GRID LAYOUT --- */
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -279,7 +268,6 @@
             gap: 20px;
         }
 
-        /* --- ACTION CARDS --- */
         .card-main {
             background: white;
             border: 1px solid #E7E5E4;
@@ -309,7 +297,6 @@
             width: 14px;
             height: 14px;
             margin-right: 6px;
-            stroke-width: 2;
         }
 
         .card-main h3 {
@@ -346,7 +333,6 @@
             width: 16px;
             height: 16px;
             margin-left: 8px;
-            stroke-width: 2;
         }
 
         .card-main-image {
@@ -386,7 +372,6 @@
         .icon-circle svg {
             width: 24px;
             height: 24px;
-            stroke-width: 2;
         }
 
         .card-help h3 {
@@ -425,7 +410,6 @@
             width: 16px;
             height: 16px;
             margin-right: 8px;
-            stroke-width: 2;
         }
     </style>
 </head>
@@ -433,38 +417,42 @@
 
 <div class="sidebar">
     <div class="sidebar-header">
-        <h1>Dashboard User</h1>
+        <h1>Dashboard Admin</h1>
     </div>
     
     <div class="sidebar-menu">
-        <a href="/user/dashboard">
+        <a href="/admin/dashboard">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
             Dashboard
         </a>
-        <a href="/user/formulir" class="active">
-            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            Formulir
+        <a href="/admin/data-pendaftar">
+            <svg viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            Data Pendaftar
         </a>
-        <a href="/user/pengumuman">
-            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
-            Pengumuman
+        <a href="/admin/pengumuman">
+            <svg viewBox="0 0 24 24"><path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+            Kelola Pengumuman
+        </a>
+        <a href="/admin/panduan" class="active">
+            <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Formulir Pendaftaran
         </a>
     </div>
 
     <div class="sidebar-footer">
         <div class="user-profile">
             <div class="user-avatar">
-                <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <svg viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
             <div class="user-info">
-                <span class="name">{{ Auth::user()->name ?? 'user1' }}</span>
-                <span class="email">{{ Auth::user()->email ?? 'user@gmail.com' }}</span>
+                <span class="name">{{ Auth::user()->name }}</span>
+                <span class="email">{{ Auth::user()->email ?? 'admin@gmail.com' }}</span>
             </div>
         </div>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="logout-btn">
-                <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                <svg viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 Logout
             </button>
         </form>
@@ -501,14 +489,14 @@
         <div class="card-main">
             <div class="card-main-content">
                 <div class="tag">
-                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     MULAI PERJALANAN
                 </div>
                 <h3>Mulai Pendaftaran Ananda</h3>
                 <p>Bergabunglah dengan lingkungan belajar yang terstruktur, aman, dan penuh kegembiraan. Isi formulir sederhana kami untuk memulai proses seleksi.</p>
-                <a href="{{ route('user.formulir.create') }}" class="btn-primary">
+                <a href="{{ route('admin.formulir.create') }}" class="btn-primary">
                     Isi Formulir Sekarang
-                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
             </div>
             
@@ -519,12 +507,12 @@
 
         <div class="card-help">
             <div class="icon-circle">
-                <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg viewBox="0 0 24 24"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             </div>
             <h3>Butuh Bantuan?</h3>
             <p>Tim admisi kami siap membantu Anda di setiap langkah. Jangan ragu untuk menghubungi kami jika ada pertanyaan.</p>
             <a href="https://wa.me/6285892399786" target="_blank" class="btn-outline">
-                <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                <svg viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                 Hubungi Admin
             </a>
         </div>
@@ -532,4 +520,4 @@
 </div>
 
 </body>
-</html>
+</html> 

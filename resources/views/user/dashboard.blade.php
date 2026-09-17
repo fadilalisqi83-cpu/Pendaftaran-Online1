@@ -272,7 +272,7 @@
             border: 1px solid #E7E5E4;
             border-radius: 12px;
             padding: 20px 24px;
-            border-left: 5px solid #14B8A6  ; 
+            border-left: 5px solid #14B8A6; 
             margin-bottom: 15px;
             transition: all 0.2s;
             overflow-wrap: break-word;
@@ -297,6 +297,63 @@
             font-size: 14px;
             line-height: 1.6;
         } 
+
+        /* =========================================
+           POPUP / MODAL PENGUMUMAN 
+           ========================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(41, 37, 36, 0.6);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: #FFFFFF;
+            width: 90%; max-width: 450px;
+            border-radius: 16px; padding: 40px 30px;
+            text-align: center; position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .modal-close {
+            position: absolute; top: 15px; right: 15px;
+            background: #F5F5F4; border: none;
+            width: 32px; height: 32px; border-radius: 50%;
+            color: #78716C; font-size: 18px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .modal-close:hover { background: #E7E5E4; color: #292524; }
+
+        .modal-icon {
+            width: 72px; height: 72px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px auto;
+        }
+        .modal-icon svg { width: 36px; height: 36px; stroke-width: 2; }
+
+        /* Varian Warna Icon Popup */
+        .icon-success { background: #D1FAE5; color: #059669; }
+        .icon-failed { background: #FEE2E2; color: #DC2626; }
+        .icon-pending { background: #FEF3C7; color: #D97706; }
+
+        .modal-content h3 { color: #292524; font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+        .modal-content p { color: #57534E; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+
+        .modal-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 100%; background: #D97706; color: white; padding: 12px;
+            border-radius: 8px; font-weight: 600; text-decoration: none;
+            font-size: 15px; transition: 0.2s; border: none; cursor: pointer;
+        }
+        .modal-btn:hover { background: #B45309; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -375,15 +432,13 @@
         @php $status = strtolower($formulir->status); @endphp
         
         @if($status == 'diterima')
-            @if($status == 'diterima')
             <!-- JIKA DITERIMA -->
             <div class="status-card status-accepted">
                 <h3 class="status-title">Selamat, Ananda Diterima! 🎉</h3>
                 <p class="status-text" style="margin-bottom: 0;">
-                    {{ $formulir->catatan_admin ?? 'Selamat kepada Ananda! Silakan datang langsung ke sekolah bersama orang tua untuk melakukan proses daftar ulang     dan menyerahkan fotocopy KK dan akte sesuai jadwal yang ditentukan.' }}
+                    {{ $formulir->catatan_admin ?? 'Selamat kepada Ananda! Silakan datang langsung ke sekolah bersama orang tua untuk melakukan proses daftar ulang dan menyerahkan fotocopy KK dan akte sesuai jadwal yang ditentukan.' }}
                 </p>
             </div>
-            @endif
 
         @elseif($status == 'ditolak')
             <!-- JIKA MASUK DAFTAR CADANGAN / BELUM LOLOS -->
@@ -440,7 +495,53 @@
             </div>
         @endif
     </div>
+
 </div>
+
+<!-- =========================================
+     BLOK HTML POPUP PENGUMUMAN DINAMIS 
+     ========================================= -->
+@if(isset($tampilkan_popup) && $tampilkan_popup == true)
+    <div class="modal-overlay" id="popupPengumuman">
+        <div class="modal-content">
+            <!-- Tombol Close (X) -->
+            <button class="modal-close" onclick="closePopup()">×</button>
+
+            @if($status_penerimaan == 'diterima')
+                <div class="modal-icon icon-success">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3>Selamat, Ananda Diterima!</h3>
+                <p>Ananda dinyatakan <strong>Lulus</strong> seleksi masuk. Silakan datang ke sekolah untuk proses daftar ulang.</p>
+                <button class="modal-btn" onclick="closePopup()">Tutup & Lihat Dashboard</button>
+
+            @elseif($status_penerimaan == 'ditolak')
+                <div class="modal-icon icon-failed">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3>Mohon Maaf</h3>
+                <p>Berdasarkan hasil penilaian panitia, ananda dinyatakan <strong>Belum Lulus</strong> pada pendaftaran kali ini. Tetap semangat!</p>
+                <button class="modal-btn" onclick="closePopup()">Tutup Pengumuman</button>
+            
+            @else
+                <!-- STATUS DEFAULT: MENUNGGU VERIFIKASI -->
+                <div class="modal-icon icon-pending">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3>Sedang Diverifikasi</h3>
+                <p>Data ananda sedang dalam proses pengecekan oleh panitia. Masa verifikasi sedang berlangsung. Silakan cek kembali nanti ya.</p>
+                <button class="modal-btn" onclick="closePopup()">Mengerti</button>
+            @endif
+        </div>
+    </div>
+
+    <!-- Script untuk Menutup Popup -->
+    <script>
+        function closePopup() {
+            document.getElementById('popupPengumuman').style.display = 'none';
+        }
+    </script>
+@endif
 
 </body>
 </html>

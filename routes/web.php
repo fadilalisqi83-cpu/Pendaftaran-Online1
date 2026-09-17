@@ -86,9 +86,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    // 1. URL ini dipanggil saat menu sidebar "Formulir" diklik
+  
     Route::get('/user/formulir', [FormulirController::class, 'panduan'])->name('user.formulir.panduan');
-
-    // 2. URL ini dipanggil saat tombol "Isi Formulir Sekarang" diklik
     Route::get('/user/formulir/isi', [FormulirController::class, 'create'])->name('user.formulir.create');
-}); 
+
+    Route::get('/admin/panduan', [AdminController::class, 'panduan'])->name('admin.panduan');
+    Route::get('/admin/formulir/create', [AdminController::class, 'create'])->name('admin.formulir.create');
+});
